@@ -19,7 +19,12 @@ compiler:
 install:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
   - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
+  - curl https://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz | sudo tar -x -z --strip-components 1 -C /usr
 script:
   - mkdir build
   - cd build
   - cmake -B. -H.. && make
+notifications:
+  email:
+    recipients:
+      - corenting@gmail.com

@@ -25,13 +25,13 @@ int main(int argc, char *argv[]) {
     cmdline_options.add(desc).add(hidden);
     po::variables_map vm;
     po::store(po::command_line_parser(argc, argv).
-                    options(cmdline_options).positional(op).run(), vm);
+            options(cmdline_options).positional(op).run(), vm);
     po::notify(vm);
 
     if (vm.count("help")) {
         std::cout << desc << "\n";
         return 1;
     }
-    
+
     return 0;
 }

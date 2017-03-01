@@ -2,12 +2,15 @@ language: cpp
 addons:
   apt:
     sources:
+      - boost-latest
       - llvm-toolchain-precise
       - ubuntu-toolchain-r-test
     packages:
       - clang-3.7
       - g++-5
       - gcc-5
+      - libboost1.55-dev
+      - libboost-program-options1.55-dev
 compiler:
   - clang
   - gcc

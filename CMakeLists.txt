@@ -3,9 +3,10 @@ project(chronos_cli)
 
 set(CMAKE_CXX_STANDARD 14)
 set(SOURCE_FILES src/main.cpp src/http_requests.cpp src/http_requests.h)
-add_executable(chronos_cli ${SOURCE_FILES})
-
-# Boost
-find_package(Boost 1.40 COMPONENTS REQUIRED program_options)
-target_link_libraries(chronos_cli ${Boost_LIBRARIES})
+set (Boost_USE_MULTITHREAD ON)
+find_package(Boost 1.40 COMPONENTS REQUIRED system program_options)
+find_package(Threads REQUIRED)
 include_directories(${Boost_INCLUDE_DIR})
+add_executable(chronos_cli ${SOURCE_FILES})
+target_link_libraries(chronos_cli pthread)
+target_link_libraries(chronos_cli ${Boost_LIBRARIES})

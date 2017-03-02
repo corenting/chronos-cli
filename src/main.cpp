@@ -1,7 +1,8 @@
 #include <iostream>
-#include <string>
-
 #include <boost/program_options.hpp>
+
+#include "http_requests.h"
+
 namespace po = boost::program_options;
 
 int main(int argc, char *argv[]) {
@@ -33,5 +34,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    /*HttpRequest::HttpResponse res = HttpRequest::MakeRequest("Group/GetGroups");
+    std::cout << res.body;*/
     return 0;
 }

@@ -13,6 +13,7 @@ matrix:
           packages:
             - g++-5
             - libboost1.55-dev
+            - libboost-system1.55-dev
             - libboost-program-options1.55-dev
       env: COMPILER=g++-5
     - compiler: clang
@@ -25,6 +26,7 @@ matrix:
           packages:
             - clang-3.7
             - libboost1.55-dev
+            - libboost-system1.55-dev
             - libboost-program-options1.55-dev
       env: COMPILER=clang++-3.7
 

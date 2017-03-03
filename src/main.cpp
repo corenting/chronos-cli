@@ -1,9 +1,9 @@
 #include <iostream>
 #include <boost/program_options.hpp>
 
-#include "http_requests.h"
 #include "schedule.h"
 #include "actions.h"
+#include "display/line_display.h"
 
 namespace po = boost::program_options;
 
@@ -47,8 +47,8 @@ int main(int argc, char *argv[]) {
     if (action == Actions::ScheduleActions::Today)
     {
         Group g(973, 14, "ING1/GRB1", 1);
-        std::string schedule = Schedule::GetToday(g);
-        std::cout << schedule;
+        std::vector<Event> schedule = Schedule::GetToday(g);
+        LineDisplay::print(schedule);
     }
     return 0;
 }

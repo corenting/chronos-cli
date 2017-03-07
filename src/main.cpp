@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
     po::notify(vm);
 
     // Display help
-    if (vm.count("help")) {
+    if (vm.count("help") || argc == 1) {
         std::cout << desc << "\n";
         return 1;
     }

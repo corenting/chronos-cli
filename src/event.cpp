@@ -1,14 +1,15 @@
+#include "boost/date_time/posix_time/posix_time.hpp"
 #include "event.h"
 
-Event::Event(boost::gregorian::date start, boost::gregorian::date end, std::string name,
+Event::Event(boost::posix_time::ptime start, boost::posix_time::ptime end, std::string name,
              std::vector<std::string> groups, std::vector<std::string> teachers, std::vector<std::string> rooms)
         : start(start), end(end), name(name), groups(groups), teachers(teachers), rooms(rooms) {}
 
-boost::gregorian::date Event::GetStart() {
+boost::posix_time::ptime Event::GetStart() {
     return start;
 }
 
-boost::gregorian::date Event::GetEnd() {
+boost::posix_time::ptime Event::GetEnd() {
     return end;
 }
 

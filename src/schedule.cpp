@@ -4,7 +4,7 @@
 #include "date.h"
 #include "http_requests.h"
 #include "event.h"
-#include "json_helpers.h"
+#include "json_parser.h"
 
 std::vector<Event> Schedule::GetToday(Group group) {
     // Create url

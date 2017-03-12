@@ -32,7 +32,7 @@ HttpRequest::HttpResponse HttpRequest::MakeRequest(std::string path) {
     request_stream << "GET " << url_path << " HTTP/1.0\r\n";
     request_stream << "Host: " << url_host << "\r\n";
     request_stream << "Accept: */*\r\n";
-    request_stream << "Auth-Token: ***REMOVED***";
+    request_stream << "Auth-Token: TODOREADFROMCONFIG\r\n";
     request_stream << "Connection: close\r\n\r\n";
 
     // Send the request.

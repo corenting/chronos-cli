@@ -6,7 +6,7 @@
 
 using boost::asio::ip::tcp;
 
-HttpRequest::HttpResponse HttpRequest::MakeRequest(std::string path) {
+HttpRequest::HttpResponse HttpRequest::MakeRequest(std::string path, std::string api_token) {
 
     // Split the url (host and path)
     std::string url_host = "v2.webservices.chronos.epita.net";
@@ -32,7 +32,7 @@ HttpRequest::HttpResponse HttpRequest::MakeRequest(std::string path) {
     request_stream << "GET " << url_path << " HTTP/1.0\r\n";
     request_stream << "Host: " << url_host << "\r\n";
     request_stream << "Accept: */*\r\n";
-    request_stream << "Auth-Token: TODOREADFROMCONFIG\r\n";
+    request_stream << "Auth-Token:" <<  api_token << "\r\n";
     request_stream << "Connection: close\r\n\r\n";
 
     // Send the request.

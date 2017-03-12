@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.6)
 project(chronos_cli)
 
 set(CMAKE_CXX_STANDARD 14)
-set(SOURCE_FILES src/main.cpp src/http_requests.cpp src/http_requests.h src/actions.cpp src/actions.h src/schedule.cpp src/schedule.h src/group.cpp src/group.h src/date.cpp src/date.h src/display/display.h src/event.cpp src/event.h src/display/line_display.cpp src/display/line_display.h src/json_parser.cpp src/json_parser.h)
+set(SOURCE_FILES src/main.cpp src/http_requests.cpp src/http_requests.h src/actions.cpp src/actions.h src/schedule.cpp src/schedule.h src/models/group.cpp src/models/group.h src/date.cpp src/date.h src/display/display.h src/models/event.cpp src/models/event.h src/display/line_display.cpp src/display/line_display.h src/json_parser.cpp src/json_parser.h)
 set (Boost_USE_MULTITHREAD ON)
 find_package(Boost 1.40 COMPONENTS REQUIRED system program_options date_time)
 find_package(Threads REQUIRED)

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../event.h"
+#include "../models/event.h"
 
 class Display {
 public:

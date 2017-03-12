@@ -1,8 +1,8 @@
 #include "boost/date_time/posix_time/posix_time.hpp"
-#include "json.hpp"
+#include "libs/json.hpp"
 #include "json_parser.h"
 #include "date.h"
-#include "event.h"
+#include "models/event.h"
 
 using json = nlohmann::json;
 

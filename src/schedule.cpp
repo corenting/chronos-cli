@@ -1,12 +1,9 @@
 #include "schedule.h"
-#include <sstream>
-
-#include "date.h"
 #include "http_requests.h"
-#include "event.h"
 #include "json_parser.h"
+#include "date.h"
 
-std::vector<Event> Schedule::GetToday(Group group) {
+std::vector<Event> Schedule::GetToday(Group group, std::string api_token) {
     // Create url
     std::stringstream ss;
     ss << "Week/GetWeek/"
@@ -16,6 +13,6 @@ std::vector<Event> Schedule::GetToday(Group group) {
        << "/"
        << group.GetTypeId();
 
-    HttpRequest::HttpResponse res = HttpRequest::MakeRequest(ss.str());
+    HttpRequest::HttpResponse res = HttpRequest::MakeRequest(ss.str(), api_token);
     return JsonHelpers::JsonToEvents(res.body);
 }

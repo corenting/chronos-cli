@@ -1,10 +1,10 @@
 #pragma once
 
 #include <vector>
-#include "group.h"
-#include "event.h"
+#include "models/group.h"
+#include "models/event.h"
 
 class Schedule {
 public:
-    static std::vector<Event> GetToday(Group group);
+    static std::vector<Event> GetToday(Group group, std::string api_token);
 };

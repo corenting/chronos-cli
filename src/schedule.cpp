@@ -14,5 +14,10 @@ std::vector<Event> Schedule::GetToday(Group group, std::string api_token) {
        << group.GetTypeId();
 
     HttpRequest::HttpResponse res = HttpRequest::MakeRequest(ss.str(), api_token);
+
+    if (res.error) {
+        std::cout << "Error: cannot download timetable from Chronos" << std::endl;
+        exit(1);
+    }
     return JsonHelpers::JsonToEvents(res.body);
 }

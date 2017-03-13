@@ -4,12 +4,12 @@
 
 #include "schedule.h"
 #include "actions.h"
+#include "group_cache.h"
 #include "display/line_display.h"
 
 namespace po = boost::program_options;
 
-po::variables_map getSettings(int argc, char *argv[])
-{
+po::variables_map getSettings(int argc, char *argv[]) {
     // Visible options
     po::options_description visibleOptions("Command line options");
     visibleOptions.add_options()
@@ -52,17 +52,13 @@ po::variables_map getSettings(int argc, char *argv[])
     configPath += getenv("HOME");
     configPath += "/.chronosrc";
     std::ifstream ifs(configPath.c_str());
-    if (!ifs)
-    {
+    if (!ifs) {
         std::cout << "Error: cannot open config file " << configPath << std::endl;
         exit(1);
-    }
-    else {
+    } else {
         store(po::parse_config_file(ifs, fileOptions), settings);
         notify(settings);
     }
-
-    std::cout << settings["group"].as<std::string>() << std::endl;
 
     // Display help
     if (settings.count("help") || argc == 1) {
@@ -93,6 +89,8 @@ int main(int argc, char *argv[]) {
     if (settings.count("api_token") != 1) {
         std::cout << "Error: you need to specify an api token in your config file";
     }
+
+    //GroupCache::renewCache(settings["api_token"].as<std::string>());
 
     // Get action and call the correct function
     Actions::ScheduleActions action = Actions::GetAction(settings["action"].as<std::string>());

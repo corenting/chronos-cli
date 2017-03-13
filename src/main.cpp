@@ -11,19 +11,24 @@ namespace po = boost::program_options;
 po::variables_map getSettings(int argc, char *argv[])
 {
     // Visible options
-    po::options_description visibleOptions("Options");
+    po::options_description visibleOptions("Command line options");
     visibleOptions.add_options()
-            ("help,h", "display help")
-            ("group,g", "set the group used for the request");
+            ("help,h", "display help");
 
     // Hidden option (to specify action)
     po::options_description HiddenOptions("Hidden options");
     HiddenOptions.add_options()
             ("action", po::value<std::string>(), "action");
 
+    // Common options (cli + config file)
+    po::options_description commonOptions("Command line or config file options");
+    commonOptions.add_options()
+            ("output,o", po::value<std::string>(), "display help")
+            ("group,g", po::value<std::string>(), "set the group used for the request");
+
     // Create cli options from visible and hidden options
     po::options_description cliOptions;
-    cliOptions.add(visibleOptions).add(HiddenOptions);
+    cliOptions.add(commonOptions).add(visibleOptions).add(HiddenOptions);
 
     // Config file options
     po::options_description configOptions("Config file options");
@@ -42,7 +47,7 @@ po::variables_map getSettings(int argc, char *argv[])
 
     // Config file parsing
     po::options_description fileOptions;
-    fileOptions.add(configOptions);
+    fileOptions.add(commonOptions).add(configOptions);
     std::string configPath;
     configPath += getenv("HOME");
     configPath += "/.chronosrc";
@@ -57,9 +62,12 @@ po::variables_map getSettings(int argc, char *argv[])
         notify(settings);
     }
 
+    std::cout << settings["group"].as<std::string>() << std::endl;
+
     // Display help
     if (settings.count("help") || argc == 1) {
-        std::cout << visibleOptions << "\n";
+        std::cout << commonOptions;
+        std::cout << visibleOptions << std::endl;
         exit(1);
     }
     return settings;

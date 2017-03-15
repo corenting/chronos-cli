@@ -12,5 +12,5 @@ public:
         bool error;
         std::string errorMsg;
     };
-    static HttpRequest::HttpResponse MakeRequest(std::string url, std::string api_token);
+    static HttpRequest::HttpResponse MakeRequest(std::string url);
 };

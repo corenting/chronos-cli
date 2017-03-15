@@ -13,7 +13,8 @@ po::variables_map getSettings(int argc, char *argv[]) {
     // Visible options
     po::options_description visibleOptions("Command line options");
     visibleOptions.add_options()
-            ("help,h", "display help");
+            ("help,h", "display help")
+            ("renew-cache,rc", "renew group cache");;
 
     // Hidden option (to specify action)
     po::options_description HiddenOptions("Hidden options");
@@ -30,10 +31,6 @@ po::variables_map getSettings(int argc, char *argv[]) {
     po::options_description cliOptions;
     cliOptions.add(commonOptions).add(visibleOptions).add(HiddenOptions);
 
-    // Config file options
-    po::options_description configOptions("Config file options");
-    configOptions.add_options()
-            ("api_token", "The token for the API");
 
     // Set action as a positional argument
     po::positional_options_description op;
@@ -47,7 +44,7 @@ po::variables_map getSettings(int argc, char *argv[]) {
 
     // Config file parsing
     po::options_description fileOptions;
-    fileOptions.add(commonOptions).add(configOptions);
+    fileOptions.add(commonOptions);
     std::string configPath;
     configPath += getenv("HOME");
     configPath += "/.chronosrc";
@@ -76,8 +73,7 @@ int main(int argc, char *argv[]) {
     try {
         settings = getSettings(argc, argv);
     }
-    catch(int e)
-    {
+    catch (int e) {
         std::cout << "Error " << e << ": config parsing error" << std::endl;
         exit(1);
     }
@@ -90,14 +86,18 @@ int main(int argc, char *argv[]) {
         std::cout << "Error: you need to specify an api token in your config file";
     }
 
-    //GroupCache::renewCache(settings["api_token"].as<std::string>());
+    // Check if need to renew cache
+    if (settings.count("renew-cache")) {
+        GroupCache::renewCache();
+    }
+
+    std::vector<Group> groupsList = GroupCache::getGroupCache();
 
     // Get action and call the correct function
     Actions::ScheduleActions action = Actions::GetAction(settings["action"].as<std::string>());
-    if (action == Actions::ScheduleActions::Today)
-    {
-        Group g(973, 14, "ING1/GRB1", 1);
-        std::vector<Event> schedule = Schedule::GetToday(g, settings["api_token"].as<std::string>());
+    if (action == Actions::ScheduleActions::Today) {
+        Group g = GroupCache::getGroupFromName("ING1/GRB1", groupsList);
+        std::vector<Event> schedule = Schedule::GetToday(g);
         LineDisplay::print(schedule);
     }
     return 0;

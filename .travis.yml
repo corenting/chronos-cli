@@ -15,6 +15,7 @@ matrix:
             - libboost1.55-dev
             - libboost-system1.55-dev
             - libboost-date-time1.55-dev
+            - libboost-filesystem1.55-dev
             - libboost-program-options1.55-dev
       env: COMPILER=g++-5
     - compiler: clang
@@ -28,6 +29,7 @@ matrix:
             - clang-3.7
             - libboost1.55-dev
             - libboost-system1.55-dev
+            - libboost-filesystem1.55-dev
             - libboost-date-time1.55-dev
             - libboost-program-options1.55-dev
       env: COMPILER=clang++-3.7

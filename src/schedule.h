@@ -6,5 +6,5 @@
 
 class Schedule {
 public:
-    static std::vector<Event> GetToday(Group group, std::string api_token);
+    static std::vector<Event> GetToday(Group group);
 };

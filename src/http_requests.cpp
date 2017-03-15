@@ -3,10 +3,11 @@
 #include <boost/asio.hpp>
 
 #include "http_requests.h"
+#include "api_token.h"
 
 using boost::asio::ip::tcp;
 
-HttpRequest::HttpResponse HttpRequest::MakeRequest(std::string path, std::string api_token) {
+HttpRequest::HttpResponse HttpRequest::MakeRequest(std::string path) {
 
     try {
         // Split the url (host and path)
@@ -32,7 +33,7 @@ HttpRequest::HttpResponse HttpRequest::MakeRequest(std::string path, std::string
         request_stream << "GET " << url_path << " HTTP/1.0\r\n";
         request_stream << "Host: " << url_host << "\r\n";
         request_stream << "Accept: */*\r\n";
-        request_stream << "Auth-Token:" << api_token << "\r\n";
+        request_stream << "Auth-Token:" << API_TOKEN << "\r\n";
         request_stream << "Connection: close\r\n\r\n";
 
         // Send the request.

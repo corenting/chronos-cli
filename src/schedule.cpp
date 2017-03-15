@@ -3,7 +3,7 @@
 #include "json_parser.h"
 #include "date.h"
 
-std::vector<Event> Schedule::GetToday(Group group, std::string api_token) {
+std::vector<Event> Schedule::GetToday(Group group) {
     // Create url
     std::stringstream ss;
     ss << "Week/GetWeek/"
@@ -13,7 +13,7 @@ std::vector<Event> Schedule::GetToday(Group group, std::string api_token) {
        << "/"
        << group.GetTypeId();
 
-    HttpRequest::HttpResponse res = HttpRequest::MakeRequest(ss.str(), api_token);
+    HttpRequest::HttpResponse res = HttpRequest::MakeRequest(ss.str());
 
     if (res.error) {
         std::cout << "Error: cannot download timetable from Chronos" << std::endl;

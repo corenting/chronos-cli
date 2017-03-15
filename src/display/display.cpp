@@ -19,7 +19,7 @@ std::string Display::truncateString(std::string string, long length) {
     return string.substr(0, length - 1) + "…";
 }
 
-std::__cxx11::string Display::GetListAsString(std::vector<std::__cxx11::string> list) {
+std::string Display::GetListAsString(std::vector<std::string> list) {
     if (list.size() == 1)
         return list.at(0);
     if (list.size() == 0)

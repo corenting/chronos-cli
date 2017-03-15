@@ -82,6 +82,9 @@ int main(int argc, char *argv[]) {
     if (settings.count("action") != 1) {
         std::cout << "Error: you need to specify an action";
     }
+    if (settings.count("group") != 1) {
+        std::cout << "Error: you need to specify a group in your config file or as an argument";
+    }
 
     // Check if need to renew cache
     if (settings.count("renew-cache")) {
@@ -93,7 +96,7 @@ int main(int argc, char *argv[]) {
     // Get action and call the correct function
     Actions::ScheduleActions action = Actions::GetAction(settings["action"].as<std::string>());
     if (action == Actions::ScheduleActions::Today) {
-        Group g = GroupCache::getGroupFromName("ING1/GRB1", groupsList);
+        Group g = GroupCache::getGroupFromName(settings["group"].as<std::string>(), groupsList);
         std::vector<Event> schedule = Schedule::GetToday(g);
         LineDisplay::print(schedule);
     }

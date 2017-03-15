@@ -49,10 +49,7 @@ po::variables_map getSettings(int argc, char *argv[]) {
     configPath += getenv("HOME");
     configPath += "/.chronosrc";
     std::ifstream ifs(configPath.c_str());
-    if (!ifs) {
-        std::cout << "Error: cannot open config file " << configPath << std::endl;
-        exit(1);
-    } else {
+    if (ifs) {
         store(po::parse_config_file(ifs, fileOptions), settings);
         notify(settings);
     }

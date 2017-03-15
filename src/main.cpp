@@ -95,10 +95,15 @@ int main(int argc, char *argv[]) {
 
     // Get action and call the correct function
     Actions::ScheduleActions action = Actions::GetAction(settings["action"].as<std::string>());
+    Group g = GroupCache::getGroupFromName(settings["group"].as<std::string>(), groupsList);
+    std::vector<Event> schedule;
     if (action == Actions::ScheduleActions::Today) {
-        Group g = GroupCache::getGroupFromName(settings["group"].as<std::string>(), groupsList);
-        std::vector<Event> schedule = Schedule::GetToday(g);
-        LineDisplay::print(schedule);
+        schedule = Schedule::GetToday(g);
     }
+    else if (action == Actions::ScheduleActions::Week)
+    {
+        schedule = Schedule::GetWeek(g);
+    }
+    LineDisplay::print(schedule);
     return 0;
 }

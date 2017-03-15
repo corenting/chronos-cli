@@ -4,6 +4,19 @@
 #include "date.h"
 
 std::vector<Event> Schedule::GetToday(Group group) {
+    std::vector<Event> events = GetWeek(group);
+    events.erase(
+            std::remove_if(
+                    events.begin(), events.end(),
+                    [](Event evt) {
+                        boost::posix_time::ptime now = boost::posix_time::second_clock::local_time();
+                        return evt.GetStart().date().day_of_week() != now.date().day_of_week();
+                    }),
+            events.end());
+    return events;
+}
+
+std::vector<Event> Schedule::GetWeek(Group group) {
     // Create url
     std::stringstream ss;
     ss << "Week/GetWeek/"

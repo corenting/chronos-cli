@@ -88,7 +88,7 @@ HttpRequest::HttpResponse HttpRequest::MakeRequest(std::string path) {
             httpResponse.error = true;
             httpResponse.errorMsg = "System error :" + error.message();
         }
-        httpResponse.error = false;
+        httpResponse.error = httpResponse.responseCode != 200;
         httpResponse.body = ss.str();
         return httpResponse;
     }

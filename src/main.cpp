@@ -82,9 +82,6 @@ int main(int argc, char *argv[]) {
     if (settings.count("action") != 1) {
         std::cout << "Error: you need to specify an action";
     }
-    if (settings.count("api_token") != 1) {
-        std::cout << "Error: you need to specify an api token in your config file";
-    }
 
     // Check if need to renew cache
     if (settings.count("renew-cache")) {

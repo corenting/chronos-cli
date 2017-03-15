@@ -2,15 +2,30 @@
 #include <cmath>
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
-
-#include "date.h"
 #include <boost/algorithm/string.hpp>
 
+
+#include "date.h"
+#include "libs/json.hpp"
+#include "http_requests.h"
+
+using json = nlohmann::json;
+
 int Date::GetCurrentWeek() {
-    boost::gregorian::date today = boost::gregorian::day_clock::local_day();
-    boost::gregorian::date ref(2014, 8, 30);
-    float weeks = ((float) (today - ref).days()) / (float) 7;
-    return (int) std::ceil(weeks);
+    std::string service("Week/GetCurrentWeek/" +
+                      std::to_string(73) + "/" + std::to_string(3));
+    HttpRequest::HttpResponse req = HttpRequest::MakeRequest(service);
+    if (req.error)
+    {
+        std::cout << "Error: cannot get current date for week calculation" << std::endl;
+        exit(1);
+    }
+    json j = json::parse(req.body);
+    if (!j["Id"].is_null()) {
+        return j["Id"].get<int>();
+    }
+    std::cout << "Error: cannot get current date for week calculation" << std::endl;
+    exit(1);
 }
 
 boost::posix_time::ptime Date::DateFromIsoString(std::string date) {

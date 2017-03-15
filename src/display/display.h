@@ -13,5 +13,5 @@ public:
     static void print(std::vector<Event> events) {};
     static std::string truncateString(std::string string, long length);
 
-    static std::__cxx11::string GetListAsString(std::vector<std::__cxx11::string> list);
+    static std::string GetListAsString(std::vector<std::__cxx11::string> list);
 };

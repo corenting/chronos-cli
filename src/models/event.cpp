@@ -17,10 +17,14 @@ std::string Event::GetName() {
     return name;
 }
 
-std::vector<std::string> Event::GetGroups() {
+std::vector<std::string> Event::GetGroupsList() {
     return groups;
 }
 
-std::vector<std::string> Event::GetTeachers() {
+std::vector<std::string> Event::GetTeachersList() {
     return teachers;
+}
+
+std::vector<std::string> Event::GetRoomsList() {
+    return rooms;
 }

@@ -24,7 +24,7 @@ po::variables_map getSettings(int argc, char *argv[]) {
     // Common options (cli + config file)
     po::options_description commonOptions("Command line or config file options");
     commonOptions.add_options()
-            ("output,o", po::value<std::string>(), "display help")
+            ("output,o", po::value<std::string>()->default_value("line"), "display help")
             ("group,g", po::value<std::string>(), "set the group used for the request");
 
     // Create cli options from visible and hidden options
@@ -104,6 +104,16 @@ int main(int argc, char *argv[]) {
     {
         schedule = Schedule::GetWeek(g);
     }
-    LineDisplay::print(schedule);
+
+    // Print according to the given printer
+    Display::OutputSystems outputSystem = Display::getOutput(settings["output"].as<std::string>());
+    if (outputSystem == Display::OutputSystems::Line)
+    {
+        LineDisplay::print(schedule);
+    }
+    /*else if (outputSystem == Display::OutputSystems::Ascii)
+    {
+        AsciiDisplay::print(schedule);
+    }*/
     return 0;
 }

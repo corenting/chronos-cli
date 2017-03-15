@@ -3,7 +3,6 @@
 #include "libs/json.hpp"
 #include "json_parser.h"
 #include "date.h"
-#include "models/event.h"
 
 using json = nlohmann::json;
 
@@ -18,7 +17,7 @@ std::vector<Event> JsonHelpers::JsonToEvents(std::string jsonString) {
         for (auto event: day["CourseList"])
         {
             boost::posix_time::ptime start = Date::DateFromIsoString(event["BeginDate"].get<std::string>());
-            boost::posix_time::ptime end = Date::DateFromIsoString(event["BeginDate"].get<std::string>());
+            boost::posix_time::ptime end = Date::DateFromIsoString(event["EndDate"].get<std::string>());
             std::string name = event["Name"].get<std::string>();
             boost::trim(name);
 

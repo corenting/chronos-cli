@@ -10,8 +10,9 @@ public:
     boost::posix_time::ptime GetStart();
     boost::posix_time::ptime GetEnd();
     std::string GetName();
-    std::vector<std::string> GetGroups();
-    std::vector<std::string> GetTeachers();
+    std::vector<std::string> GetGroupsList();
+    std::vector<std::string> GetRoomsList();
+    std::vector<std::string> GetTeachersList();
 private:
     boost::posix_time::ptime start;
     boost::posix_time::ptime end;

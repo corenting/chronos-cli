@@ -1,5 +1,5 @@
 #pragma once
-
+#include <string>
 #include "../models/event.h"
 #include "boost/date_time/posix_time/posix_time.hpp"
 

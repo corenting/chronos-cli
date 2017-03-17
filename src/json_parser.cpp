@@ -27,8 +27,7 @@ std::vector<Event> JsonHelpers::JsonToEvents(std::string jsonString) {
             start = local_adj::utc_to_local(start);
             end = local_adj::utc_to_local(end);
 
-            std::string name = event["Name"].get<std::string>();
-            boost::trim(name);
+            std::string name = boost::trim_copy(event["Name"].get<std::string>());
 
             std::vector<std::string> teachers;
             for (auto teacher: event["StaffList"])
@@ -41,16 +40,14 @@ std::vector<Event> JsonHelpers::JsonToEvents(std::string jsonString) {
             std::vector<std::string> rooms;
             for (auto room: event["RoomList"])
             {
-                std::string roomName = room["Name"].get<std::string>();
-                boost::trim(roomName);
+                std::string roomName = boost::trim_copy(room["Name"].get<std::string>());
                 rooms.push_back(roomName);
             }
 
             std::vector<std::string> groups;
             for (auto group: event["GroupList"])
             {
-                std::string groupName = group["Name"].get<std::string>();
-                boost::trim(groupName);
+                std::string groupName = boost::trim_copy(group["Name"].get<std::string>());
                 groups.push_back(groupName);
             }
             events.emplace_back(start, end, name, groups, teachers, rooms);

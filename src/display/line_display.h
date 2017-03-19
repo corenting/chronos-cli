@@ -4,5 +4,5 @@
 
 class LineDisplay : Display{
 public:
-    static void print(std::vector<Event> events);
+    static void Print(std::vector<Event> events);
 };

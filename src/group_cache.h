@@ -7,16 +7,16 @@ using json = nlohmann::json;
 
 class GroupCache {
 public:
-    static void renewCache();
+    static void RenewCache();
 
-    static void parseGroupsJson(json node, std::vector<Group> &groups);
+    static void ParseGroupsJson(json node, std::vector<Group> &groups);
 
-    static std::vector<Group> getGroupCache();
+    static std::vector<Group> GetGroupeCache();
 
-    static Group getGroupFromName(std::string name, std::vector<Group>);
+    static Group GetGroupeName(std::string name, std::vector<Group>);
 
 private:
-    static std::string getCachePath();
+    static std::string GetCachePath();
 
-    static void createCachePath();
+    static void CreateCachePath();
 };

@@ -9,7 +9,7 @@
 
 namespace po = boost::program_options;
 
-po::variables_map getSettings(int argc, char *argv[]) {
+po::variables_map GetSettings(int argc, char **argv) {
     // Visible options
     po::options_description visibleOptions("Command line options");
     visibleOptions.add_options()
@@ -68,7 +68,7 @@ int main(int argc, char *argv[]) {
     // Get settings
     po::variables_map settings;
     try {
-        settings = getSettings(argc, argv);
+        settings = GetSettings(argc, argv);
     }
     catch (int e) {
         std::cout << "Error " << e << ": config parsing error" << std::endl;
@@ -85,14 +85,14 @@ int main(int argc, char *argv[]) {
 
     // Check if need to renew cache
     if (settings.count("renew-cache")) {
-        GroupCache::renewCache();
+        GroupCache::RenewCache();
     }
 
-    std::vector<Group> groupsList = GroupCache::getGroupCache();
+    std::vector<Group> groupsList = GroupCache::GetGroupeCache();
 
     // Get action and call the correct function
     Actions::ScheduleActions action = Actions::GetAction(settings["action"].as<std::string>());
-    Group g = GroupCache::getGroupFromName(settings["group"].as<std::string>(), groupsList);
+    Group g = GroupCache::GetGroupeName(settings["group"].as<std::string>(), groupsList);
     std::vector<Event> schedule;
     if (action == Actions::ScheduleActions::Today) {
         schedule = Schedule::GetToday(g);
@@ -103,14 +103,14 @@ int main(int argc, char *argv[]) {
     }
 
     // Print according to the given printer
-    Display::OutputSystems outputSystem = Display::getOutput(settings["output"].as<std::string>());
+    Display::OutputSystems outputSystem = Display::GetOutput(settings["output"].as<std::string>());
     if (outputSystem == Display::OutputSystems::Line)
     {
-        LineDisplay::print(schedule);
+        LineDisplay::Print(schedule);
     }
     /*else if (outputSystem == Display::OutputSystems::Ascii)
     {
-        AsciiDisplay::print(schedule);
+        AsciiDisplay::Print(schedule);
     }*/
     return 0;
 }

@@ -9,9 +9,9 @@ public:
         Line,
         Ascii,
     };
-    static OutputSystems getOutput(std::string output);
-    static void print(std::vector<Event> events) {};
-    static std::string truncateString(std::string string, long length);
+    static OutputSystems GetOutput(std::string output);
+    static void Print(std::vector<Event> events) {};
+    static std::string TruncateString(std::string string, long length);
 
     static std::string GetListAsString(std::vector<std::string> list);
 };

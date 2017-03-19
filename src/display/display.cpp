@@ -2,7 +2,7 @@
 #include "boost/date_time/posix_time/posix_time.hpp"
 #include "display.h"
 
-Display::OutputSystems Display::getOutput(std::string output) {
+Display::OutputSystems Display::GetOutput(std::string output) {
         if (output == "line")
             return Line;
         if (output == "ascii")
@@ -11,7 +11,7 @@ Display::OutputSystems Display::getOutput(std::string output) {
         exit(1);
 }
 
-std::string Display::truncateString(std::string string, long length) {
+std::string Display::TruncateString(std::string string, long length) {
     if (string.length() <= 1)
         return string;
     if (string.length() <= length)

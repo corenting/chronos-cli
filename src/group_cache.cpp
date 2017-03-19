@@ -9,7 +9,7 @@
 
 using json = nlohmann::json;
 
-void GroupCache::renewCache() {
+void GroupCache::RenewCache() {
     // Get the list
     HttpRequest::HttpResponse groupList = HttpRequest::MakeRequest("Group/GetGroups");
 
@@ -22,27 +22,27 @@ void GroupCache::renewCache() {
     json rootJson = json::parse(groupList.body);
 
     //Save json to cache file
-    createCachePath();
+    CreateCachePath();
     std::ofstream fs;
-    fs.open(getCachePath());
+    fs.open(GetCachePath());
     if(!fs.is_open())
     {
         fs.clear();
-        fs.open(getCachePath(), std::ios::out);
+        fs.open(GetCachePath(), std::ios::out);
         fs.close();
-        fs.open(getCachePath());
+        fs.open(GetCachePath());
     }
 
     if (!fs.is_open())
     {
-        std::cout << "Error: cannot write groups cache file in " << getCachePath() << std::endl;
+        std::cout << "Error: cannot write groups cache file in " << GetCachePath() << std::endl;
         exit(1);
     }
     fs << rootJson;
     fs.close();
 }
 
-void GroupCache::parseGroupsJson(json node, std::vector<Group>& groups) {
+void GroupCache::ParseGroupsJson(json node, std::vector<Group> &groups) {
     for (json arrayElement : node) {
         // There is a group, add it
         if (!arrayElement["Name"].is_null()) {
@@ -54,22 +54,22 @@ void GroupCache::parseGroupsJson(json node, std::vector<Group>& groups) {
 
             // Check for subgroups
             if (!arrayElement["Groups"].is_null()) {
-                parseGroupsJson(arrayElement["Groups"], groups);
+                ParseGroupsJson(arrayElement["Groups"], groups);
             }
         }
     }
 }
 
-std::vector<Group> GroupCache::getGroupCache() {
+std::vector<Group> GroupCache::GetGroupeCache() {
     // Attempt to read the file
     std::ifstream fs;
-    fs.open(getCachePath());
+    fs.open(GetCachePath());
 
     // Doesn't exist, create it
     if (!fs.is_open()) {
         fs.close();
-        renewCache();
-        return getGroupCache();
+        RenewCache();
+        return GetGroupeCache();
     }
 
     // Deserialize json
@@ -79,18 +79,18 @@ std::vector<Group> GroupCache::getGroupCache() {
 
     // Parse it and return the list
     std::vector<Group> groups;
-    parseGroupsJson(rootJson, groups);
+    ParseGroupsJson(rootJson, groups);
     return groups;
 }
 
-std::string GroupCache::getCachePath() {
+std::string GroupCache::GetCachePath() {
     std::string filePath;
     filePath += getenv("HOME");
     filePath += "/.cache/chronos-cli/groups_cache.json";
     return filePath;
 }
 
-void GroupCache::createCachePath() {
+void GroupCache::CreateCachePath() {
     std::string dirPath;
     dirPath += getenv("HOME");
     dirPath += "/.cache/chronos-cli/";
@@ -98,12 +98,12 @@ void GroupCache::createCachePath() {
     boost::system::error_code returnedError;
     boost::filesystem::create_directories(rootPath, returnedError);
     if (returnedError) {
-        std::cout << "Error: cannot create directories to store " << getCachePath();
+        std::cout << "Error: cannot create directories to store " << GetCachePath();
         exit(1);
     }
 }
 
-Group GroupCache::getGroupFromName(std::string name, std::vector<Group> groups) {
+Group GroupCache::GetGroupeName(std::string name, std::vector<Group> groups) {
     for (Group g : groups) {
         if (g.GetName() == name) {
             return g;

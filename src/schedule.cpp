@@ -32,5 +32,28 @@ std::vector<Event> Schedule::GetWeek(Group group) {
         std::cout << "Error: cannot download timetable from Chronos" << std::endl;
         exit(1);
     }
-    return JsonHelpers::JsonToEvents(res.body);
+    std::vector<Event> vec = JsonHelpers::JsonToEvents(res.body);
+    if (vec.size() <= 0)
+    {
+        std::cout << "Nothing for this week";
+        exit(0);
+    }
+    return vec;
+}
+
+std::vector<Event> Schedule::GetNext(Group group) {
+    std::vector<Event> events = GetWeek(group);
+    events.erase(
+            std::remove_if(
+                    events.begin(), events.end(),
+                    [](Event evt) {
+                        boost::posix_time::ptime now = boost::posix_time::second_clock::local_time();
+                        return evt.GetStart() < now;
+                    }),
+            events.end());
+
+    if (events.size() <= 0)
+        return std::vector<Event>();
+    std::vector<Event> subVector(events.begin(), events.begin() + 1);
+    return subVector;
 }

@@ -101,6 +101,10 @@ int main(int argc, char *argv[]) {
     {
         schedule = Schedule::GetWeek(g);
     }
+    else if (action == Actions::ScheduleActions::Next)
+    {
+        schedule = Schedule::GetNext(g);
+    }
 
     // Print according to the given printer
     Display::OutputSystems outputSystem = Display::GetOutput(settings["output"].as<std::string>());

@@ -8,4 +8,6 @@ class Schedule {
 public:
     static std::vector<Event> GetToday(Group group);
     static std::vector<Event> GetWeek(Group group);
+
+    static std::vector<Event> GetNext(Group group);
 };

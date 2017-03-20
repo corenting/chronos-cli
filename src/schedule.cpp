@@ -4,7 +4,7 @@
 #include "date.h"
 
 std::vector<Event> Schedule::GetToday(Group group) {
-    std::vector<Event> events = GetWeek(group);
+    std::vector<Event> events = GetCurrentWeek(group);
     events.erase(
             std::remove_if(
                     events.begin(), events.end(),
@@ -16,12 +16,10 @@ std::vector<Event> Schedule::GetToday(Group group) {
     return events;
 }
 
-std::vector<Event> Schedule::GetWeek(Group group) {
+std::vector<Event> Schedule::GetCurrentWeek(Group group) {
     // Create url
     std::stringstream ss;
-    ss << "Week/GetWeek/"
-       << Date::GetCurrentWeek()
-       << "/"
+    ss << "Week/GetCurrentWeek/"
        << group.GetId()
        << "/"
        << group.GetTypeId();
@@ -42,7 +40,7 @@ std::vector<Event> Schedule::GetWeek(Group group) {
 }
 
 std::vector<Event> Schedule::GetNext(Group group) {
-    std::vector<Event> events = GetWeek(group);
+    std::vector<Event> events = GetCurrentWeek(group);
     events.erase(
             std::remove_if(
                     events.begin(), events.end(),

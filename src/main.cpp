@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
     }
     else if (action == Actions::ScheduleActions::Week)
     {
-        schedule = Schedule::GetWeek(g);
+        schedule = Schedule::GetCurrentWeek(g);
     }
     else if (action == Actions::ScheduleActions::Next)
     {

@@ -70,8 +70,8 @@ int main(int argc, char *argv[]) {
     try {
         settings = GetSettings(argc, argv);
     }
-    catch (int e) {
-        std::cout << "Error " << e << ": config parsing error" << std::endl;
+    catch (po::error& e) {
+        std::cout << e.what() << std::endl;
         exit(1);
     }
 

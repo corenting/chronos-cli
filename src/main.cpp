@@ -17,9 +17,9 @@ po::variables_map GetSettings(int argc, char **argv) {
             ("renew-cache,rc", "renew group cache");;
 
     // Hidden option (to specify action)
-    po::options_description HiddenOptions("Hidden options");
-    HiddenOptions.add_options()
-            ("action", po::value<std::string>(), "action");
+    po::options_description hiddenOptions("Action option (can also be specified without -a / --action, like 'chronos_cli today')");
+    hiddenOptions.add_options()
+            ("action,a", po::value<std::string>(), "what will be displayed (next, week...)");
 
     // Common options (cli + config file)
     po::options_description commonOptions("Command line or config file options");
@@ -29,7 +29,7 @@ po::variables_map GetSettings(int argc, char **argv) {
 
     // Create cli options from visible and hidden options
     po::options_description cliOptions;
-    cliOptions.add(commonOptions).add(visibleOptions).add(HiddenOptions);
+    cliOptions.add(commonOptions).add(visibleOptions).add(hiddenOptions);
 
 
     // Set action as a positional argument
@@ -56,8 +56,9 @@ po::variables_map GetSettings(int argc, char **argv) {
 
     // Display help
     if (settings.count("help") || argc == 1) {
-        std::cout << commonOptions;
-        std::cout << visibleOptions << std::endl;
+        std::cout << hiddenOptions << std::endl
+                  << commonOptions << std::endl
+                  << visibleOptions << std::endl;
         exit(1);
     }
     return settings;

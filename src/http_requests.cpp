@@ -61,7 +61,7 @@ HttpRequest::HttpResponse HttpRequest::MakeRequest(std::string path) {
             return httpResponse;
         }
         if (httpResponse.responseCode != 200) {
-            httpResponse.errorMsg = "Response returned with status code " + httpResponse.responseCode;
+            httpResponse.errorMsg = "Response returned with status code " + std::to_string(httpResponse.responseCode);
             httpResponse.error = true;
         }
 

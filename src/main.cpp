@@ -19,7 +19,7 @@ po::variables_map GetSettings(int argc, char **argv) {
     // Hidden option (to specify action)
     po::options_description hiddenOptions("Action option (can also be specified without -a / --action, like 'chronos_cli today')");
     hiddenOptions.add_options()
-            ("action,a", po::value<std::string>(), "what will be displayed (next, week...)");
+            ("action,a", po::value<std::string>()->default_value("week"), "what will be displayed (next, week...)");
 
     // Common options (cli + config file)
     po::options_description commonOptions("Command line or config file options");
@@ -76,10 +76,7 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    // Check for mandatory settings
-    if (settings.count("action") != 1) {
-        std::cout << "Error: you need to specify an action";
-    }
+    // Check for mandatory setting
     if (settings.count("group") != 1) {
         std::cout << "Error: you need to specify a group in your config file or as an argument";
     }

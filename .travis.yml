@@ -11,13 +11,13 @@ matrix:
             - boost-latest
             - ubuntu-toolchain-r-test
           packages:
-            - g++-7
+            - g++-6
             - libboost1.55-dev
             - libboost-system1.55-dev
             - libboost-date-time1.55-dev
             - libboost-filesystem1.55-dev
             - libboost-program-options1.55-dev
-      env: COMPILER=g++-7
+      env: COMPILER=g++-6
     - compiler: clang
       addons:
         apt:
@@ -32,7 +32,7 @@ matrix:
             - libboost-filesystem1.55-dev
             - libboost-date-time1.55-dev
             - libboost-program-options1.55-dev
-      env: COMPILER=clang++-3.8
+      env: COMPILER=clang++-3.7
 
 before_install:
   - sudo apt-get update -qq

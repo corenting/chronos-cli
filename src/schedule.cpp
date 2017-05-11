@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "schedule.h"
 #include "http_requests.h"
 #include "json_parser.h"
@@ -54,4 +56,18 @@ std::vector<Event> Schedule::GetNext(Group group) {
         return std::vector<Event>();
     std::vector<Event> subVector(events.begin(), events.begin() + 1);
     return subVector;
+}
+
+void Schedule::RemoveBlacklisted(std::vector<Event>& schedule, std::vector<std::string> blacklist) {
+    std::cout << "Blacklist is :" << std::endl;
+    for (auto elt : blacklist) {
+        std::cout << elt << std::endl;
+    }
+    schedule.erase(
+        std::remove_if(
+            schedule.begin(), schedule.end(),
+                [&blacklist](Event evt) {
+                    return std::find(blacklist.begin(), blacklist.end(), evt.GetName()) != blacklist.end();
+                }),
+            schedule.end());
 }

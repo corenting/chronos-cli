@@ -6,11 +6,10 @@ set(SOURCE_FILES src/main.cpp src/http_requests.cpp src/http_requests.h src/acti
 
 set (Boost_USE_MULTITHREAD ON)
 find_package(Boost 1.40 COMPONENTS REQUIRED system program_options date_time filesystem)
-find_package(Threads REQUIRED)
 include_directories(${Boost_INCLUDE_DIR})
 add_subdirectory(libs/cpr)
 
 add_executable(chronos_cli ${SOURCE_FILES})
 include_directories(${CPR_INCLUDE_DIRS})
-target_link_libraries(chronos_cli ${CPR_LIBRARIES} pthread ${Boost_LIBRARIES})
+target_link_libraries(chronos_cli ${CPR_LIBRARIES} ${Boost_LIBRARIES})
 install(TARGETS chronos_cli DESTINATION bin)

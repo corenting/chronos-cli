@@ -14,13 +14,13 @@ using json = nlohmann::json;
 int Date::GetCurrentWeek() {
     std::string service("Week/GetCurrentWeek/" +
                       std::to_string(73) + "/" + std::to_string(3));
-    HttpRequest::HttpResponse req = HttpRequest::MakeRequest(service);
-    if (req.error)
+    cpr::Response req = HttpRequest::MakeRequest(service);
+    if (req.status_code != 200)
     {
         std::cout << "Error: cannot get current date for week calculation" << std::endl;
         exit(1);
     }
-    json j = json::parse(req.body);
+    json j = json::parse(req.text);
     if (!j["Id"].is_null()) {
         return j["Id"].get<int>();
     }

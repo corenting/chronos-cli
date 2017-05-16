@@ -26,13 +26,13 @@ std::vector<Event> Schedule::GetCurrentWeek(Group group) {
        << "/"
        << group.GetTypeId();
 
-    HttpRequest::HttpResponse res = HttpRequest::MakeRequest(ss.str());
+    cpr::Response res = HttpRequest::MakeRequest(ss.str());
 
-    if (res.error) {
+    if (res.status_code != 200) {
         std::cout << "Error: cannot download timetable from Chronos" << std::endl;
         exit(1);
     }
-    std::vector<Event> vec = JsonHelpers::JsonToEvents(res.body);
+    std::vector<Event> vec = JsonHelpers::JsonToEvents(res.text);
     if (vec.size() <= 0)
     {
         std::cout << "Nothing for this week";

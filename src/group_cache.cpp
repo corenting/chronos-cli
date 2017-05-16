@@ -11,15 +11,15 @@ using json = nlohmann::json;
 
 void GroupCache::RenewCache() {
     // Get the list
-    HttpRequest::HttpResponse groupList = HttpRequest::MakeRequest("Group/GetGroups");
+    cpr::Response groupList = HttpRequest::MakeRequest("Group/GetGroups");
 
-    if (groupList.error)
+    if (groupList.status_code != 200)
     {
         std::cout << "Error: cannot download groups list" << std::endl;
         exit(1);
     }
     // Launch parsing function on root node
-    json rootJson = json::parse(groupList.body);
+    json rootJson = json::parse(groupList.text);
 
     //Save json to cache file
     CreateCachePath();

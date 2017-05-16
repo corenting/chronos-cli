@@ -25,7 +25,7 @@ po::variables_map GetSettings(int argc, char **argv) {
     po::options_description commonOptions("Command line or config file options");
     commonOptions.add_options()
             ("output,o", po::value<std::string>()->default_value("line"), "display help")
-            ("blacklist,b", po::value<std::vector<std::string>>()->multitoken(), "blacklisted courses")
+            ("blacklist,b", po::value<std::string>(), "blacklisted courses")
             ("group,g", po::value<std::string>(), "set the group used for the request");
 
     // Create cli options from visible and hidden options
@@ -106,7 +106,7 @@ int main(int argc, char *argv[]) {
 
     // Remove the blacklist courses
     if (settings.count("blacklist")) {
-        Schedule::RemoveBlacklisted(schedule, settings["blacklist"].as<std::vector<std::string>>());
+        Schedule::RemoveBlacklisted(schedule, settings["blacklist"].as<std::string>());
     }
 
     // Print according to the given printer

@@ -1,4 +1,5 @@
 #include <algorithm>
+#include<boost/tokenizer.hpp>
 
 #include "schedule.h"
 #include "http_requests.h"
@@ -58,16 +59,15 @@ std::vector<Event> Schedule::GetNext(Group group) {
     return subVector;
 }
 
-void Schedule::RemoveBlacklisted(std::vector<Event>& schedule, std::vector<std::string> blacklist) {
-    std::cout << "Blacklist is :" << std::endl;
-    for (auto elt : blacklist) {
-        std::cout << elt << std::endl;
-    }
+void Schedule::RemoveBlacklisted(std::vector<Event>& schedule, std::string blacklist) {
+    typedef boost::tokenizer<boost::char_separator<char>>  tokenizer;
+    boost::char_separator<char> char_separator(";");
+    tokenizer tokens(blacklist, char_separator);
     schedule.erase(
         std::remove_if(
             schedule.begin(), schedule.end(),
-                [&blacklist](Event evt) {
-                    return std::find(blacklist.begin(), blacklist.end(), evt.GetName()) != blacklist.end();
+                [&tokens](Event evt) {
+                    return std::find(tokens.begin(), tokens.end(), evt.GetName()) != tokens.end();
                 }),
             schedule.end());
 }

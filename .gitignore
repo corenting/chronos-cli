@@ -40,6 +40,7 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 /chronos_cli.cbp
+build/
 
 # Clion
 .idea/
@@ -47,3 +48,6 @@ cmake-build-debug/
 
 # YouCompleteMe
 .ycm_extra_conf.py
+
+" VSCode
+.vscode/

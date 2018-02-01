@@ -15,7 +15,6 @@ group=MTI
 blacklist=Work 1;Work 2
 ```
 
-Work 1
 # Libraries used
 - [boost](http://www.boost.org/), by various atuhors, with the following license :
 ```

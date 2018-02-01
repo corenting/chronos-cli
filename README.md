@@ -4,8 +4,18 @@ This is a CLI client for [Chronos](http://chronos.epita.net/), the web-based too
 
 # How to use
 
-TODO
+For usage, see ```chronos_cli -h```. Some options can be specified in a ```.chronosrc``` file located in your home directory.
 
+## Example .chronosrc
+
+```
+# Default group (use the same name as on the Chronos website)
+group=MTI
+# Blacklisted courses (separated by semicolon)
+blacklist=Work 1;Work 2
+```
+
+Work 1
 # Libraries used
 - [boost](http://www.boost.org/), by various atuhors, with the following license :
 ```

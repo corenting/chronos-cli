@@ -1,12 +1,26 @@
-# chronos-cli [![Build Status](https://travis-ci.org/corenting/chronos-cli.svg?branch=master)](https://travis-ci.org/corenting/chronos-cli)
+# chronos-cli
 
 This is a CLI client for [Chronos](http://chronos.epita.net/), the web-based tool used at Epita for timetables.
+
+# Installation
+
+You need GCC, CMake, and the Boost libraries.
+
+```
+git clone https://github.com/corenting/chronos-cli.git chronos-cli
+cd chronos-cli
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+```
 
 # How to use
 
 For usage, see ```chronos_cli -h```. Some options can be specified in a ```.chronosrc``` file located in your home directory.
 
-## Example .chronosrc
+## Example config (.chronosrc in your home directory)
 
 ```
 # Default group (use the same name as on the Chronos website)

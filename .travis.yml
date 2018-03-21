@@ -29,7 +29,7 @@ script:
   # Run your build commands next
   - mkdir build
   - cd build
-  - cmake .. -B. -H..  && make
+  - cmake .. && make
 notifications:
   email:
     recipients:

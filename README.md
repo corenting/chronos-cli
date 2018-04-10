@@ -9,6 +9,7 @@ You need GCC, CMake, and the Boost libraries.
 ```
 git clone https://github.com/corenting/chronos-cli.git chronos-cli
 cd chronos-cli
+git submodule update --init --recursive
 mkdir build
 cd build
 cmake ..

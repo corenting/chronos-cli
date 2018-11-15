@@ -3,6 +3,13 @@
 #include <fstream>
 #include <boost/filesystem.hpp>
 
+#include <cpprest/http_client.h>
+#include <cpprest/filestream.h>
+#include <cpprest/filestream.h>
+using namespace web::http;
+using namespace web::http::client;
+using namespace Concurrency::streams;
+
 #include "libs/json.hpp"
 #include "group_cache.h"
 #include "http_requests.h"
@@ -11,15 +18,15 @@ using json = nlohmann::json;
 
 void GroupCache::RenewCache() {
     // Get the list
-    cpr::Response groupList = HttpRequest::MakeRequest("Group/GetGroups");
+    http_response groupList = HttpRequest::MakeRequest("Group/GetGroups");
 
-    if (groupList.status_code != 200)
+    if (groupList.status_code() != 200)
     {
         std::cout << "Error: cannot download groups list" << std::endl;
         exit(1);
     }
     // Launch parsing function on root node
-    json rootJson = json::parse(groupList.text);
+    json rootJson = json::parse(groupList.extract_utf8string().get());
 
     //Save json to cache file
     CreateCachePath();

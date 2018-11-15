@@ -1,19 +1,20 @@
 #include <iostream>
 #include <sstream>
 #include <boost/asio.hpp>
-#include <cpr/cpr.h>
 #include <sstream>
 
 #include "http_requests.h"
 #include "api_token.h"
 
-using boost::asio::ip::tcp;
-
-cpr::Response HttpRequest::MakeRequest(std::string path) {
-    // URL
-    std::stringstream url_stream;
-    url_stream << "http://v2.webservices.chronos.epita.net/api/v2/" << path;
-
+http_response HttpRequest::MakeRequest(std::string path) {
     // Make request
-    return cpr::Get(cpr::Url{url_stream.str()}, cpr::Header{{"Auth-Token", API_TOKEN}});
+    http_client httpClient("http://v2.webservices.chronos.epita.net/api/v2/");
+
+    // Simple GET request
+    http_request req(methods::GET);
+    req.set_request_uri(path);
+    req.headers().add(U("Auth-Token"), API_TOKEN);
+    http_response httpResponse = httpClient.request(req).get();
+
+    return httpResponse;
 }

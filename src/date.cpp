@@ -4,6 +4,12 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/algorithm/string.hpp>
 
+#include <cpprest/http_client.h>
+#include <cpprest/filestream.h>
+#include <cpprest/filestream.h>
+using namespace web::http;
+using namespace web::http::client;
+using namespace Concurrency::streams;
 
 #include "date.h"
 #include "libs/json.hpp"
@@ -14,13 +20,13 @@ using json = nlohmann::json;
 int Date::GetCurrentWeek() {
     std::string service("Week/GetCurrentWeek/" +
                       std::to_string(73) + "/" + std::to_string(3));
-    cpr::Response req = HttpRequest::MakeRequest(service);
-    if (req.status_code != 200)
+    http_response req = HttpRequest::MakeRequest(service);
+    if (req.status_code() != 200)
     {
         std::cout << "Error: cannot get current date for week calculation" << std::endl;
         exit(1);
     }
-    json j = json::parse(req.text);
+    json j = json::parse(req.extract_utf8string().get());
     if (!j["Id"].is_null()) {
         return j["Id"].get<int>();
     }

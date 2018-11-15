@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.7)
 project(chronos_cli)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -6,13 +6,13 @@ set(SOURCE_FILES src/main.cpp src/http_requests.cpp src/http_requests.h src/acti
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
+find_package(cpprestsdk REQUIRED)
 
 set (Boost_USE_MULTITHREAD ON)
 find_package(Boost 1.40 COMPONENTS REQUIRED system program_options date_time filesystem)
 include_directories(${Boost_INCLUDE_DIR})
-add_subdirectory(libs/cpr)
 
 add_executable(chronos_cli ${SOURCE_FILES})
-include_directories(${CPR_INCLUDE_DIRS})
-target_link_libraries(chronos_cli Threads::Threads ${CPR_LIBRARIES} ${Boost_LIBRARIES})
+link_libraries("-static")
+target_link_libraries(chronos_cli Threads::Threads cpprestsdk::cpprest ${Boost_LIBRARIES})
 install(TARGETS chronos_cli DESTINATION bin)

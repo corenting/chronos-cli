@@ -14,8 +14,7 @@ void LineDisplay::Print(std::vector<Event> events) {
 
             if (first) {
                 first = false;
-            }
-            else {
+            } else {
                 std::cout << std::endl;
             }
             std::cout << event.GetStart() << std::endl;

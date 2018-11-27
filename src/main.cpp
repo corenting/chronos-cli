@@ -17,7 +17,8 @@ po::variables_map GetSettings(int argc, char **argv) {
             ("renew-cache,rc", "renew group cache");;
 
     // Hidden option (to specify action)
-    po::options_description hiddenOptions("Action option (can also be specified without -a / --action, like 'chronos_cli today')");
+    po::options_description hiddenOptions(
+            "Action option (can also be specified without -a / --action, like 'chronos_cli today')");
     hiddenOptions.add_options()
             ("action,a", po::value<std::string>()->default_value("week"), "what will be displayed (next, week...)");
 
@@ -71,7 +72,7 @@ int main(int argc, char *argv[]) {
     try {
         settings = GetSettings(argc, argv);
     }
-    catch (po::error& e) {
+    catch (po::error &e) {
         std::cout << e.what() << std::endl;
         exit(1);
     }
@@ -86,21 +87,17 @@ int main(int argc, char *argv[]) {
         GroupCache::RenewCache();
     }
 
-    std::vector<Group> groupsList = GroupCache::GetGroupeCache();
+    std::vector<Group> groupsList = GroupCache::GetGroupCache();
 
     // Get action and call the correct function
     Actions::ScheduleActions action = Actions::GetAction(settings["action"].as<std::string>());
-    Group g = GroupCache::GetGroupeName(settings["group"].as<std::string>(), groupsList);
+    Group g = GroupCache::GetGroupName(settings["group"].as<std::string>(), groupsList);
     std::vector<Event> schedule;
     if (action == Actions::ScheduleActions::Today) {
         schedule = Schedule::GetToday(g);
-    }
-    else if (action == Actions::ScheduleActions::Week)
-    {
+    } else if (action == Actions::ScheduleActions::Week) {
         schedule = Schedule::GetCurrentWeek(g);
-    }
-    else if (action == Actions::ScheduleActions::Next)
-    {
+    } else if (action == Actions::ScheduleActions::Next) {
         schedule = Schedule::GetNext(g);
     }
 
@@ -111,8 +108,7 @@ int main(int argc, char *argv[]) {
 
     // Print according to the given printer
     Display::OutputSystems outputSystem = Display::GetOutput(settings["output"].as<std::string>());
-    if (outputSystem == Display::OutputSystems::Line)
-    {
+    if (outputSystem == Display::OutputSystems::Line) {
         LineDisplay::Print(schedule);
     }
     /*else if (outputSystem == Display::OutputSystems::Ascii)

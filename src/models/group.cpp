@@ -1,8 +1,7 @@
 #include "group.h"
 
 Group::Group(int id, int parentId, std::string name, int gtype)
-        : id(id), parentId(parentId), name(name)
-{
+        : id(id), parentId(parentId), name(name) {
     if (gtype == 1)
         type = GroupType::ClassGroup;
     else if (gtype == 2)

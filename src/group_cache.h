@@ -11,9 +11,9 @@ public:
 
     static void ParseGroupsJson(json node, std::vector<Group> &groups);
 
-    static std::vector<Group> GetGroupeCache();
+    static std::vector<Group> GetGroupCache();
 
-    static Group GetGroupeName(std::string name, std::vector<Group>);
+    static Group GetGroupName(std::string name, std::vector<Group>);
 
 private:
     static std::string GetCachePath();

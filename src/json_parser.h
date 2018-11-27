@@ -1,4 +1,5 @@
 #pragma once
+
 #include "models/event.h"
 
 class JsonHelpers {

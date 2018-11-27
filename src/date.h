@@ -7,5 +7,6 @@
 class Date {
 public:
     static int GetCurrentWeek();
+
     static boost::posix_time::ptime DateFromIsoString(std::string date);
 };

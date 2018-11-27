@@ -1,4 +1,5 @@
 #pragma once
+
 #include <string>
 
 
@@ -9,5 +10,6 @@ public:
         Next,
         Week,
     };
-    static ScheduleActions  GetAction(std::string action);
+
+    static ScheduleActions GetAction(std::string action);
 };

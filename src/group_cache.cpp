@@ -6,6 +6,7 @@
 #include <cpprest/http_client.h>
 #include <cpprest/filestream.h>
 #include <cpprest/filestream.h>
+
 using namespace web::http;
 using namespace web::http::client;
 using namespace Concurrency::streams;
@@ -20,8 +21,7 @@ void GroupCache::RenewCache() {
     // Get the list
     http_response groupList = HttpRequest::MakeRequest("Group/GetGroups");
 
-    if (groupList.status_code() != 200)
-    {
+    if (groupList.status_code() != 200) {
         std::cout << "Error: cannot download groups list" << std::endl;
         exit(1);
     }
@@ -32,16 +32,14 @@ void GroupCache::RenewCache() {
     CreateCachePath();
     std::ofstream fs;
     fs.open(GetCachePath());
-    if(!fs.is_open())
-    {
+    if (!fs.is_open()) {
         fs.clear();
         fs.open(GetCachePath(), std::ios::out);
         fs.close();
         fs.open(GetCachePath());
     }
 
-    if (!fs.is_open())
-    {
+    if (!fs.is_open()) {
         std::cout << "Error: cannot write groups cache file in " << GetCachePath() << std::endl;
         exit(1);
     }
@@ -67,7 +65,7 @@ void GroupCache::ParseGroupsJson(json node, std::vector<Group> &groups) {
     }
 }
 
-std::vector<Group> GroupCache::GetGroupeCache() {
+std::vector<Group> GroupCache::GetGroupCache() {
     // Attempt to read the file
     std::ifstream fs;
     fs.open(GetCachePath());
@@ -76,7 +74,7 @@ std::vector<Group> GroupCache::GetGroupeCache() {
     if (!fs.is_open()) {
         fs.close();
         RenewCache();
-        return GetGroupeCache();
+        return GetGroupCache();
     }
 
     // Deserialize json
@@ -110,7 +108,7 @@ void GroupCache::CreateCachePath() {
     }
 }
 
-Group GroupCache::GetGroupeName(std::string name, std::vector<Group> groups) {
+Group GroupCache::GetGroupName(std::string name, std::vector<Group> groups) {
     for (Group g : groups) {
         if (g.GetName() == name) {
             return g;

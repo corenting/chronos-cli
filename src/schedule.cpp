@@ -34,8 +34,7 @@ std::vector<Event> Schedule::GetCurrentWeek(Group group) {
         exit(1);
     }
     std::vector<Event> vec = JsonHelpers::JsonToEvents(res.extract_utf8string().get());
-    if (vec.size() <= 0)
-    {
+    if (vec.size() <= 0) {
         std::cout << "Nothing for this week";
         exit(0);
     }
@@ -59,15 +58,15 @@ std::vector<Event> Schedule::GetNext(Group group) {
     return subVector;
 }
 
-void Schedule::RemoveBlacklisted(std::vector<Event>& schedule, std::string blacklist) {
-    typedef boost::tokenizer<boost::char_separator<char>>  tokenizer;
+void Schedule::RemoveBlacklisted(std::vector<Event> &schedule, std::string blacklist) {
+    typedef boost::tokenizer<boost::char_separator<char>> tokenizer;
     boost::char_separator<char> char_separator(";");
     tokenizer tokens(blacklist, char_separator);
     schedule.erase(
-        std::remove_if(
-            schedule.begin(), schedule.end(),
-                [&tokens](Event evt) {
-                    return std::find(tokens.begin(), tokens.end(), evt.GetName()) != tokens.end();
-                }),
+            std::remove_if(
+                    schedule.begin(), schedule.end(),
+                    [&tokens](Event evt) {
+                        return std::find(tokens.begin(), tokens.end(), evt.GetName()) != tokens.end();
+                    }),
             schedule.end());
 }

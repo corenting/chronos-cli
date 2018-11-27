@@ -16,11 +16,9 @@ std::vector<Event> JsonHelpers::JsonToEvents(std::string jsonString) {
 
 
     //Days
-    for (auto day : parsedJson["DayList"])
-    {
+    for (auto day : parsedJson["DayList"]) {
         //Events
-        for (auto event: day["CourseList"])
-        {
+        for (auto event: day["CourseList"]) {
             // Dates
             boost::posix_time::ptime start = Date::DateFromIsoString(event["BeginDate"].get<std::string>());
             boost::posix_time::ptime end = Date::DateFromIsoString(event["EndDate"].get<std::string>());
@@ -30,23 +28,20 @@ std::vector<Event> JsonHelpers::JsonToEvents(std::string jsonString) {
             std::string name = boost::trim_copy(event["Name"].get<std::string>());
 
             std::vector<std::string> teachers;
-            for (auto teacher: event["StaffList"])
-            {
+            for (auto teacher: event["StaffList"]) {
                 std::string teacherName = teacher["Name"].get<std::string>();
                 boost::trim(teacherName);
                 teachers.push_back(teacherName);
             }
 
             std::vector<std::string> rooms;
-            for (auto room: event["RoomList"])
-            {
+            for (auto room: event["RoomList"]) {
                 std::string roomName = boost::trim_copy(room["Name"].get<std::string>());
                 rooms.push_back(roomName);
             }
 
             std::vector<std::string> groups;
-            for (auto group: event["GroupList"])
-            {
+            for (auto group: event["GroupList"]) {
                 std::string groupName = boost::trim_copy(group["Name"].get<std::string>());
                 groups.push_back(groupName);
             }

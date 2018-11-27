@@ -3,12 +3,12 @@
 #include "display.h"
 
 Display::OutputSystems Display::GetOutput(std::string output) {
-        if (output == "line")
-            return Line;
-        if (output == "ascii")
-            return Ascii;
-        std::cout << "Error: " << output << " is not a valid output option" << std::endl;
-        exit(1);
+    if (output == "line")
+        return Line;
+    if (output == "ascii")
+        return Ascii;
+    std::cout << "Error: " << output << " is not a valid output option" << std::endl;
+    exit(1);
 }
 
 std::string Display::TruncateString(std::string string, long length) {
@@ -25,8 +25,7 @@ std::string Display::GetListAsString(std::vector<std::string> list) {
     if (list.size() == 0)
         return std::string("");
     std::stringstream ss;
-    for (int i = 0; i < list.size() - 2; i++)
-    {
+    for (int i = 0; i < list.size() - 2; i++) {
         ss << list.at(i) << ", ";
     }
     ss << list.at(list.size() - 1);

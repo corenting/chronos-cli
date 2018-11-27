@@ -7,6 +7,7 @@
 #include <cpprest/http_client.h>
 #include <cpprest/filestream.h>
 #include <cpprest/filestream.h>
+
 using namespace web::http;
 using namespace web::http::client;
 using namespace Concurrency::streams;
@@ -19,10 +20,9 @@ using json = nlohmann::json;
 
 int Date::GetCurrentWeek() {
     std::string service("Week/GetCurrentWeek/" +
-                      std::to_string(73) + "/" + std::to_string(3));
+                        std::to_string(73) + "/" + std::to_string(3));
     http_response req = HttpRequest::MakeRequest(service);
-    if (req.status_code() != 200)
-    {
+    if (req.status_code() != 200) {
         std::cout << "Error: cannot get current date for week calculation" << std::endl;
         exit(1);
     }
